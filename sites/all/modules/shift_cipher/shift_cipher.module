@@ -2,32 +2,32 @@
 
 global $alphabet;
 $alphabet = array(
-    '0' => 'a',
-    '1' => 'b',
-    '2' => 'c',
-    '3' => 'd',
-    '4' => 'e',
-    '5' => 'f',
-    '6' => 'g',
-    '7' => 'h',
-    '8' => 'i',
-    '9' => 'j',
-    '10' => 'k',
-    '11' => 'l',
-    '12' => 'm',
-    '13' => 'n',
-    '14' => 'o',
-    '15' => 'p',
-    '16' => 'q',
-    '17' => 'r',
-    '18' => 's',
-    '19' => 't',
-    '20' => 'u',
-    '21' => 'v',
-    '22' => 'w',
-    '23' => 'x',
-    '24' => 'y',
-    '25' => 'z'
+    'a' => 0,
+    'b' => 1,
+    'c' => 2,
+    'd' => 3,
+    'e' => 4,
+    'f' => 5,
+    'g' => 6,
+    'h' => 7,
+    'i' => 8,
+    'j' => 9,
+    'k' => 10,
+    'l' => 11,
+    'm' => 12,
+    'n' => 13,
+    'o' => 14,
+    'p' => 15,
+    'q' => 16,
+    'r' => 17,
+    's' => 18,
+    't' => 19,
+    'u' => 20,
+    'v' => 21,
+    'w' => 22,
+    'x' => 23,
+    'y' => 24,
+    'z' => 25
 );
 
 function shift_cipher_menu() {
@@ -96,7 +96,6 @@ function element_validate_left_right($element) {
 
 function element_validate_letters_punctuation($element) {
     $user_input = str_split($element['#value']);
-    global $alphabet;
     foreach ($user_input as $input) {
         if ((preg_match("/[^a-zA-Z0-9\s\p{P}]/", $input))) {
             form_set_error('user_input', 'Invalid character(s) in the message!');
@@ -107,9 +106,15 @@ function element_validate_letters_punctuation($element) {
 function shift_cipher_form_submit($form, &$form_state) {
     $shift_spaces = $form_state['values']['shift_spaces'];
     $shift_direction = $form_state['values']['shift_direction'];
-    $user_input = strtolower($form_state['values']['user_input']);
-    $output = '';
-    $output = $user_input . ' ' . $shift_direction . ' ' . $shift_spaces;
+    $user_input = str_split(strtolower($form_state['values']['user_input']));
+    $output = array();
+    global $alphabet;
+    foreach ($user_input as $input) {
+        if (in_array($input, $alphabet)) {
+            $input = $alphabet[$input];
+            array_push($output, $input);
+        }
+    }
 
     $_SESSION['shift_cipher'] = $output;
     $form_state['redirect'] = 'shift_cipher_success_page';
@@ -117,5 +122,6 @@ function shift_cipher_form_submit($form, &$form_state) {
 
 function shift_cipher_success() {
     $output = $_SESSION['shift_cipher'];
+    var_dump($output);
     return '<p>results: ' . $output . '</p>';
 }
