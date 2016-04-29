@@ -3,6 +3,7 @@
 * db admin pw: test
 * login: admin
 * pw: data
+* portfolio repository: https://github.com/michaellor/michael-portfolio
 
 #Shift Cipher
 ####Drupal Code Review for Epicodus, 04.29.2016
