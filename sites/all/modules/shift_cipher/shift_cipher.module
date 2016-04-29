@@ -24,6 +24,7 @@ function shift_cipher_form() {
       '#type' => 'textfield',
       '#description' => t('Enter the number of spaces to shift.'),
       '#required' => TRUE,
+      '#element_validate' => array('element_validate_number'),
     );
     $form['shift_direction'] = array(
         '#title' => 'Shift Direction',
@@ -47,7 +48,7 @@ function shift_cipher_form() {
 function shift_cipher_form_submit($form, &$form_state) {
     $shift_spaces = $form_state['values']['shift_spaces'];
     $shift_direction = $form_state['values']['shift_direction'];
-    $user_input = $form_state['values']['user_input'];
+    $user_input = strtolower($form_state['values']['user_input']);
     $output = '';
     $output = $user_input . ' ' . $shift_direction . ' ' . $shift_spaces;
 
