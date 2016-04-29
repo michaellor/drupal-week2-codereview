@@ -1,8 +1,8 @@
-database: shift_cipher
-db admin: admin_shift
-db admin pw: test
-login: admin
-pw: data
+* database: shift_cipher
+* db admin: admin_shift
+* db admin pw: test
+* login: admin
+* pw: data
 
 #Shift Cipher
 ####Drupal Code Review for Epicodus, 04.29.2016
