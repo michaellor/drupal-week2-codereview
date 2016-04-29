@@ -17,3 +17,26 @@ function shift_cipher_menu() {
     );
     return $items;
 }
+
+function shift_cipher_form() {
+    $form['user_input'] = array(
+        '#title' => 'User Input',
+        '#type' => 'textfield',
+        '#description' => t('Enter a message to encode.'),
+    );
+    $form['shift_direction'] = array(
+        '#title' => 'Shift Direction',
+        '#type' => 'textfield',
+        '#description' => t('Enter a direction. (right or left)'),
+    );
+    $form['shift_spaces'] = array(
+        '#title' => 'Shift Spaces',
+        '#type' => 'textfield',
+        '#description' => t('Enter the number of spaces to shift.'),
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Encode Message!',
+    );
+    return $form;
+}
