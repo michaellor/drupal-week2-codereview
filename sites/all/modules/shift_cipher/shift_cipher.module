@@ -20,7 +20,7 @@ function shift_cipher_menu() {
 
 function shift_cipher_form() {
     $form['user_input'] = array(
-        '#title' => 'User Input',
+        '#title' => 'Message',
         '#type' => 'textfield',
         '#description' => t('Enter a message to encode.'),
     );
@@ -39,4 +39,14 @@ function shift_cipher_form() {
         '#value' => 'Encode Message!',
     );
     return $form;
+}
+
+function shift_cipher_form_submit($form, &$form_state) {
+    $user_input = $form_state['values']['user_input'];
+    $shift_direction = $form_state['values']['shift_direction'];
+    $shift_spaces = $form_state['values']['shift_spaces'];
+    $output = '';
+    $output = $user_input . ' ' . $shift_direction . ' ' . $shift_spaces;
+
+    $_SESSION['shift_cipher'] = $output;
 }

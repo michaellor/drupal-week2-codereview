@@ -1,5 +1,5 @@
-name: Shift Cipher
-description: 'A module used to encrypt a user input with a shift cipher.'
-package: Shift Cipher
-core: 7.x
+name = Shift Cipher
+description = 'A module used to encrypt a user input with a shift cipher.'
+package = Other
+core = 7.x
 files[] = shift_cipher.module
