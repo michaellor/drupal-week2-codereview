@@ -29,8 +29,9 @@ function shift_cipher_form() {
     $form['shift_direction'] = array(
         '#title' => 'Shift Direction',
         '#type' => 'textfield',
-        '#description' => t('Enter a direction. (right or left)'),
+        '#description' => t('Enter a direction. (left or right)'),
         '#required' => TRUE,
+        '#element_validate' => array('element_validate_left_right'),
     );
     $form['user_input'] = array(
       '#title' => 'Message',
@@ -43,6 +44,14 @@ function shift_cipher_form() {
         '#value' => 'Encode Message!',
     );
     return $form;
+}
+
+function element_validate_left_right($element) {
+    $direction = array('left', 'right');
+    $direction_input = strtolower($element['#value']);
+    if (!(in_array($direction_input, $direction))) {
+        form_set_error('shift_direction', 'Incorrect input, please enter left or right');
+    }
 }
 
 function shift_cipher_form_submit($form, &$form_state) {
