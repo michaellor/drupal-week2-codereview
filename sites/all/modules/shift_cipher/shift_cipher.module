@@ -111,8 +111,27 @@ function shift_cipher_form_submit($form, &$form_state) {
     global $alphabet;
     foreach ($user_input as $input) {
         if (in_array($input, $alphabet)) {
+
             $input = $alphabet[$input];
-            array_push($output, $input);
+
+            if ($shift_direction == 'right') {
+                $offset = $input + $shift_spaces;
+                if ($offset > 26) {
+                    $offset = $offset - 26;
+                }
+            } elseif ($shift_direction == 'left') {
+                $offset = $input - $shift_spaces;
+                    if ($offset < 0) {
+                        $offset = $offset + 26;
+                    }
+                }
+            foreach ($alphabet as $key => $letter) {
+                if ($offset == $letter) {
+                    $offset = $letter;
+                }
+                array_push($output, '<p>' . $offset . '</p>');
+            }
+
         }
     }
 
