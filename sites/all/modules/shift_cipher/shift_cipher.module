@@ -24,7 +24,7 @@ function shift_cipher_form() {
       '#type' => 'textfield',
       '#description' => t('Enter the number of spaces to shift.'),
       '#required' => TRUE,
-      '#element_validate' => array('element_validate_number'),
+      '#element_validate' => array('element_validate_number_range'),
     );
     $form['shift_direction'] = array(
         '#title' => 'Shift Direction',
@@ -44,6 +44,15 @@ function shift_cipher_form() {
         '#value' => 'Encode Message!',
     );
     return $form;
+}
+
+function element_validate_number_range($element) {
+    $number_input = $element['#value'];
+    if (($number_input == 0) || ($number_input % 26 == 0)) {
+        form_set_error('shift_spaces', 'Cannot encode with a shift value of ' . $number_input . '. The message will be the same!');
+    } elseif ($number_input < 0) {
+        form_set_error('shift_spaces', 'Shift Spaces must be a positive integer.');
+    }
 }
 
 function element_validate_left_right($element) {
