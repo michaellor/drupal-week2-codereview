@@ -107,10 +107,11 @@ function shift_cipher_form_submit($form, &$form_state) {
     $shift_spaces = $form_state['values']['shift_spaces'];
     $shift_direction = $form_state['values']['shift_direction'];
     $user_input = str_split(strtolower($form_state['values']['user_input']));
+    $_SESSION['test'] = $user_input;
     $output = array();
     global $alphabet;
     foreach ($user_input as $input) {
-        if (in_array($input, $alphabet)) {
+        if ((preg_match("/[a-zA-Z]/", $input))) {
 
             $input = $alphabet[$input];
 
@@ -125,13 +126,14 @@ function shift_cipher_form_submit($form, &$form_state) {
                         $offset = $offset + 26;
                     }
                 }
-            foreach ($alphabet as $key => $letter) {
-                if ($offset == $letter) {
-                    $offset = $letter;
+            foreach ($alphabet as $key => $value) {
+                if ($offset == $value) {
+                    $offset = $key;
                 }
-                array_push($output, '<p>' . $offset . '</p>');
             }
-
+            array_push($output, $offset);
+        } else {
+            array_push($output, $input);
         }
     }
 
@@ -140,7 +142,8 @@ function shift_cipher_form_submit($form, &$form_state) {
 }
 
 function shift_cipher_success() {
+    var_dump($_SESSION['test']);
     $output = $_SESSION['shift_cipher'];
-    var_dump($output);
+    $output = implode("", $output);
     return '<p>results: ' . $output . '</p>';
 }
